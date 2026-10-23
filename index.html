@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Paywall Audit — MadMuscles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only dark;
+  /* ---- MadMuscles, extracted from their live paywall (Oct 2026 recording) ---- */
+  --mm-bg:#131313; --mm-card:#323232; --mm-sheet:#1C1C1C; --mm-line:#2A2A2A;
+  --mm-ink:#FFFFFF; --mm-dim:#B4B4B4; --mm-muted:#A2A2A2; --mm-sel:#EAEAEA;
+  --mm-orange:#FF3C00; --mm-orange2:#F65927; --mm-halo:#511E10; --mm-blue:#0055C7;
+  --mm-tag:#EAEAEA; --mm-tagink:#131313;
+  --r-ctl:4px; --r-media:0px;
+  /* ---- the report shell, in MadMuscles' own palette (dark app, dark shell) ---- */
+  --bg:#131313; --bg2:#1A1A1A; --surf:#1C1C1C;
+  --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.16);
+  --ink:#F4F4F4; --ink2:#BDBDBD; --ink3:#8A8A8A;
+  --accent:#FF3C00; --accent-lift:#FF6B3D;
+  --panel:#FFFFFF; --panel-ink:#15181B; --panel-muted:#5F666D; --panel-line:#E9ECEF;
+  --accent-ink:#C23000;
+  --warm:#F2A23A;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 16px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(19,19,19,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 16px;gap:10px}}
+.nav-brand{display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:600;letter-spacing:-.01em;min-width:0}
+.nav-brand .mk{height:22px;flex:none;display:block;color:var(--ink)}
+.nav-brand .mk svg{height:22px;width:auto;display:block}
+.nav-brand span{color:var(--ink2);font-weight:500;white-space:nowrap}
+.nav-brand b{color:var(--ink);font-weight:600;white-space:nowrap}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:#262626;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.nav-rep{font-size:12.5px;font-weight:600;color:var(--accent-lift);text-decoration:none;white-space:nowrap;margin-left:6px}
+.nav-rep:hover{text-decoration:underline}
+@media(max-width:820px){.nav-brand span{display:none}}
+.nav-brand .mk{flex:none}
+.nav-rep .sh{display:none}
+@media(max-width:560px){.nav-brand b{display:none}.nav-brand .mk svg{height:18px}.nav-links button{padding:7px 9px;font-size:12.5px}.nav-rep{font-size:12px;margin-left:2px}
+  .nav-rep .lg{display:none}.nav-rep .sh{display:inline}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:96px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-340px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,60,0,.22),transparent 72%)}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:-60px;height:200px;pointer-events:none;z-index:0;
+  background:radial-gradient(50% 60% at 50% 100%,rgba(255,86,33,.08),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero-co{display:flex;align-items:center;justify-content:center;gap:22px;margin:0 0 24px}
+.hero-co img{width:72px;height:72px;border-radius:17px;display:block;box-shadow:0 10px 30px -10px rgba(255,60,0,.6)}
+.hero h1{font-size:76px;line-height:.98;font-weight:700;letter-spacing:-.045em;margin:0}
+@media(max-width:820px){.hero h1{font-size:46px}.hero{padding-top:64px}.hero-co img{width:52px;height:52px;border-radius:12px}.hero-co{gap:14px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:620px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em;padding:0 8px}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:70px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 6px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(255,60,0,.18);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#1E1E1E;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;box-shadow:0 2px 12px rgba(0,0,0,.3);transition:.16s}
+.ghostbtn:hover{background:#262626}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:700px}
+@media(max-width:820px){.sec h2{font-size:28px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:660px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+/* scorecard */
+.sc{width:100%;border-collapse:collapse;margin-top:30px;font-size:14px}
+.sc th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+  padding:0 14px 12px 0;border-bottom:1px solid var(--hair2)}
+.sc td{padding:16px 14px 16px 0;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--ink2);line-height:1.5}
+.sc td:first-child{color:var(--ink);font-weight:700;width:150px}
+.sc td:last-child{width:170px;padding-right:0}
+.sc td small{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:12px;white-space:nowrap}
+.pill.def{background:#2A2A2A;color:#CFCFCF}
+.pill.opp{background:rgba(255,60,0,.16);color:#FF8A5C;border:1px solid rgba(255,60,0,.35)}
+.pill.mis{background:rgba(242,162,58,.16);color:#F5B85E;border:1px solid rgba(242,162,58,.4)}
+.sc .to{display:block;margin-top:7px;font-size:12px;font-weight:700;color:var(--accent-lift);text-decoration:none}
+.sc .to:hover{text-decoration:underline}
+.sc-cap{font-size:12.5px;color:var(--ink3);margin-top:16px;max-width:700px;line-height:1.55}
+@media(max-width:760px){
+  .sc thead{display:none}
+  .sc,.sc tbody,.sc tr,.sc td{display:block;width:100% !important}
+  .sc tr{background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+  .sc td{border:none;padding:4px 0}
+  .sc td:first-child{font-size:15.5px;padding-bottom:6px}
+  .sc td[data-l]::before{content:attr(data-l);display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+  .sc td:last-child{padding-top:10px}
+}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 190px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s;cursor:pointer}
+.idea:hover{background:rgba(255,255,255,.03)}
+@media(max-width:780px){.idea{grid-template-columns:34px 1fr;gap:14px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:560px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:4px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;line-height:1.4}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+.rchip{display:inline-flex;align-items:flex-start;gap:8px;margin-top:12px;max-width:560px;background:#1E1E1E;border:1px solid var(--hair);
+  border-radius:12px;padding:8px 12px;font-size:12.5px;line-height:1.45;color:var(--ink2);text-decoration:none}
+.rchip:hover{border-color:var(--hair2);color:var(--ink)}
+.rchip b{color:var(--ink);font-weight:700}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 22px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift);white-space:nowrap}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+
+.repcard{background:#fff;color:#141414;border-radius:28px;padding:38px 44px;margin-top:28px;display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+@media(max-width:700px){.repcard{padding:28px 22px}}
+.repcard .rk{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C23000;margin-bottom:8px}
+.repcard h3{font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-.035em}
+.repcard p{font-size:15px;color:#4A4A4A;margin-top:8px;line-height:1.5}
+.repcard .rt{flex:1;min-width:240px}
+.repbtn{display:inline-flex;align-items:center;gap:8px;background:#141414;color:#fff;text-decoration:none;font-size:14.5px;font-weight:700;padding:14px 22px;border-radius:30px}
+.repbtn:hover{background:#000}
+
+.cta-row{display:flex;justify-content:center;margin-top:52px;align-items:center;gap:22px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.1)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:30px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;min-height:0;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #3A3A3A,0 34px 70px -22px rgba(0,0,0,.8)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--mm-bg);color-scheme:only dark}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:700 15px/1 'Inter',sans-serif;color:#fff;transition:color .3s}
+.sbar.dk{color:#111}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:rgba(255,255,255,.9);z-index:56;pointer-events:none;transition:background .3s}
+.homebar.dk{background:#111}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--mm-bg)}
+
+/* ============ phone screens — MadMuscles' system, all prefixed scr-/mm- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--mm-bg);color:var(--mm-ink);
+  font-family:'Inter',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.nofx,.scr.nofx .mm-sheet{transition:none !important}
+.scr-top{flex:none;position:relative;z-index:3}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-foot{flex:none;padding:8px 16px 26px;position:relative;z-index:2;background:var(--mm-bg)}
+
+/* paywall */
+.mm-photo{position:relative;height:172px;margin-top:20px;overflow:hidden}
+.mm-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.mm-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,19,19,.55) 0%,rgba(19,19,19,0) 18%,rgba(19,19,19,0) 52%,var(--mm-bg) 100%)}
+.mm-x{position:absolute;left:14px;top:58px;width:40px;height:40px;display:grid;place-items:center;color:#fff;z-index:4}
+.mm-x svg{width:22px;height:22px}
+.mm-restore{position:absolute;right:16px;top:66px;font:500 16.5px/1 'Inter',sans-serif;color:var(--mm-orange2);z-index:4}
+.mm-head{position:relative;margin:-40px 18px 0;text-align:center;z-index:3}
+.mm-payh{font-size:27px;line-height:1.18;font-weight:800;letter-spacing:-.012em;color:var(--mm-ink)}
+.mm-paysub{font-size:13px;font-weight:600;color:var(--mm-dim);margin-top:7px;letter-spacing:.005em}
+.mm-proof{margin:10px 16px 0;display:flex;flex-direction:column;gap:6px;position:relative}
+.mm-rate{display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;font-size:13px;font-weight:700;color:var(--mm-ink)}
+.mm-stars{color:#FFB400;letter-spacing:1px;font-size:13px}
+.mm-quote{background:var(--mm-card);border-radius:var(--r-ctl);padding:7px 12px;font-size:11.5px;line-height:1.4;color:var(--mm-dim);text-align:center}
+.mm-quote b{color:var(--mm-ink);font-weight:700}
+.mm-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:24px 16px 0;position:relative}
+.mm-plan{position:relative;background:var(--mm-card);border:3px solid transparent;border-radius:var(--r-ctl);padding:12px 4px 10px;
+  text-align:center;color:var(--mm-dim);font-family:'Inter',sans-serif;transition:border-color .15s,color .15s}
+.mm-plan.on{border-color:var(--mm-sel);color:var(--mm-ink)}
+.mm-plan .n{display:block;font-size:27px;font-weight:800;line-height:1}
+.mm-plan .u{display:block;font-size:17px;font-weight:800;letter-spacing:.01em;margin-top:6px;line-height:1}
+html[lang=de] .mm-plan .u{font-size:15px;letter-spacing:0}
+html[lang=de] .mm-tagp,html[lang=es] .mm-tagp{letter-spacing:.06em}
+.mm-plan .p{display:block;font-size:14px;font-weight:800;margin-top:7px}
+.mm-plan .e{display:block;font-size:12.5px;font-weight:500;margin-top:3px;white-space:nowrap}
+.mm-plan .w{display:block;font-size:13px;font-weight:500;margin-top:8px;padding-top:8px;border-top:1px solid #4A4A4A;margin-left:8px;margin-right:8px;white-space:nowrap}
+.mm-tagp{position:absolute;top:-17px;left:-3px;right:-3px;height:17px;display:grid;place-items:center;font:600 10px/1 'Inter',sans-serif;
+  letter-spacing:.14em;text-transform:uppercase;background:var(--mm-tag);color:var(--mm-tagink);white-space:nowrap;overflow:hidden}
+.mm-tagp.blue{background:var(--mm-blue);color:#F4FBFF}
+.mm-save{margin:10px 16px 0;font-size:12px;line-height:1.4;color:var(--mm-dim);text-align:center}
+.mm-save b{color:var(--mm-ink);font-weight:700}
+.mm-life{position:relative;display:block;width:calc(100% - 32px);margin:22px 16px 4px;background:var(--mm-card);border:3px solid transparent;border-radius:var(--r-ctl);
+  padding:14px 14px 12px;text-align:left;color:var(--mm-dim);transition:border-color .15s,color .15s}
+.mm-life.on{border-color:var(--mm-sel);color:var(--mm-ink)}
+.mm-life .t{display:block;font-size:16px;font-weight:800;letter-spacing:.01em;line-height:1}
+.mm-life .s{display:block;font-size:12.5px;font-weight:500;margin-top:5px}
+.mm-life .mm-tagp{left:50%;right:auto;transform:translateX(-50%);padding:0 7px;top:-16px;height:16px}
+.mm-halo{background:var(--mm-halo);padding:9px 16px;border-radius:2px;animation:halo 1.6s ease-in-out infinite}
+@keyframes halo{0%,100%{box-shadow:0 0 0 0 rgba(255,60,0,0)}50%{box-shadow:0 0 18px 2px rgba(255,60,0,.35)}}
+.mm-btn{display:block;width:100%;height:50px;background:var(--mm-orange);color:#fff;font:700 17px/1 'Inter',sans-serif;border-radius:2px}
+.mm-btn:hover{filter:brightness(1.06)}
+.mm-legal{text-align:center;margin-top:12px;font-size:11.5px;color:var(--mm-muted);line-height:1.35;padding:0 6px}
+.mm-links{display:flex;justify-content:center;gap:7px;margin-top:5px;font-size:11.5px;color:var(--mm-muted)}
+.mm-links a{color:var(--mm-orange2);text-decoration:underline;text-underline-offset:2px}
+
+/* today's version */
+.scr--pay.var-a .mm-proof,.scr--pay.var-a .mm-paysub,.scr--pay.var-a .mm-save{display:none}
+.scr--pay.var-a .mm-photo{height:292px;margin-top:40px}
+.scr--pay.var-a .mm-head{margin-top:-58px}
+.scr--pay.var-a .mm-plans{margin-top:42px}
+.scr--pay.var-a .mm-life{margin-top:28px}
+
+/* offer on close — a bottom sheet in their card language */
+.scr.mm-ov{background:transparent;transform:none !important;opacity:0;pointer-events:none;transition:opacity .3s;z-index:40;display:block}
+.scr.mm-ov.is-active{opacity:1;pointer-events:auto}
+.mm-dim{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.mm-sheet{position:absolute;left:0;right:0;bottom:0;background:var(--mm-sheet);border-radius:22px 22px 0 0;padding:12px 16px 26px;
+  transform:translateY(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);border-top:1px solid #2C2C2C}
+.mm-ov.is-active .mm-sheet{transform:none}
+.mm-handle{width:40px;height:5px;border-radius:3px;background:#4A4A4A;margin:0 auto}
+.mm-sh-h{position:relative;font-size:24px;line-height:1.18;font-weight:800;text-align:center;margin:22px 10px 0;color:var(--mm-ink)}
+.mm-sh-s{font-size:14px;font-weight:500;color:var(--mm-dim);text-align:center;margin:8px 0 0}
+.mm-oplans{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:34px 40px 0}
+.mm-ghost{display:block;width:100%;height:42px;margin-top:6px;font:600 15px/1 'Inter',sans-serif;color:var(--mm-dim)}
+
+/* account — where both paths hand over today */
+.scr--acc{background:var(--mm-bg)}
+.mm-wall{position:relative;height:330px;margin-top:0}
+.mm-wall img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.mm-wall::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,19,19,0) 60%,var(--mm-bg))}
+.mm-help{position:absolute;right:18px;top:60px;font:700 15px/1 'Inter',sans-serif;color:#fff;text-decoration:underline;text-underline-offset:3px;z-index:4}
+.mm-ach{font-size:26px;font-weight:800;text-align:center;margin-top:6px}
+.mm-acs{font-size:14px;color:var(--mm-dim);text-align:center;margin-top:8px}
+.mm-field{margin:24px 16px 0;height:46px;border-radius:8px;background:#1E1E1E;border:1px solid #333;display:flex;align-items:center;padding:0 14px;font-size:15px;color:#6E6E6E}
+.mm-or{display:flex;align-items:center;gap:12px;margin:22px 16px 0;color:#7A7A7A;font-size:14px}
+.mm-or::before,.mm-or::after{content:'';flex:1;height:1px;background:#333}
+.mm-soc{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 16px 0;height:46px;border-radius:8px;background:#fff;color:#111;font:600 15px/1 'Inter',sans-serif;width:calc(100% - 32px)}
+.mm-soc svg{width:18px;height:18px}
+
+/* report pins */
+.pin{position:absolute;z-index:6;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;
+  font:800 11.5px/22px 'Plus Jakarta Sans',sans-serif;text-align:center;box-shadow:0 0 0 3px rgba(255,60,0,.28),0 3px 8px rgba(0,0,0,.4);
+  animation:pinp 2s ease-in-out infinite}
+@keyframes pinp{0%,100%{box-shadow:0 0 0 3px rgba(255,60,0,.28),0 3px 8px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 7px rgba(255,60,0,.1),0 3px 8px rgba(0,0,0,.4)}}
+.nopins .pin,.on-offer [data-id=paywall] .pin{display:none !important}
+.demo-pins .pin{display:none}
+.demo-pins .pin.lit{display:block}
+.pop{position:absolute;z-index:80;width:250px;background:#fff;color:#15181B;border-radius:14px;padding:13px 14px 12px;
+  box-shadow:0 14px 40px rgba(0,0,0,.45);font-family:'Plus Jakarta Sans',sans-serif;opacity:0;pointer-events:none;transform:translateY(6px);transition:.18s}
+.pop.on{opacity:1;pointer-events:auto;transform:none}
+.pop .k{font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#C23000}
+.pop p{font-size:12.5px;line-height:1.5;margin-top:5px;color:#2E353B}
+.pop p b{color:#15181B}
+.pop .sl{font-size:11px;color:#6A7178;margin-top:6px}
+.pop a{display:inline-block;margin-top:7px;font-size:12px;font-weight:700;color:#C23000;text-decoration:none}
+.pop .cl{position:absolute;right:8px;top:6px;font-size:16px;color:#8A9097;width:22px;height:22px}
+
+/* light mode — an approximation: only dark frames were supplied */
+.phone-in.light{--mm-bg:#F3F3F3;--mm-card:#FFFFFF;--mm-sheet:#FFFFFF;--mm-ink:#131313;--mm-dim:#5E5E5E;--mm-muted:#6E6E6E;
+  --mm-sel:#131313;--mm-halo:#FFD6C6;--mm-tag:#131313;--mm-tagink:#FFFFFF;background:var(--mm-bg)}
+.phone-in.light .screenwrap{background:var(--mm-bg)}
+.phone-in.light .mm-plan,.phone-in.light .mm-life,.phone-in.light .mm-quote{box-shadow:0 1px 6px rgba(0,0,0,.07)}
+.phone-in.light .mm-plan .w{border-top-color:#E2E2E2}
+.phone-in.light .mm-photo::after{background:linear-gradient(180deg,rgba(243,243,243,0) 0%,rgba(243,243,243,0) 45%,var(--mm-bg) 96%)}
+.phone-in.light .mm-x{color:#fff}
+.phone-in.light .mm-sheet{border-top-color:#E3E3E3}
+.phone-in.light .mm-handle{background:#CFCFCF}
+.phone-in.light .mm-dim{background:rgba(30,30,30,.45)}
+.phone-in.light .mm-wall::after{background:linear-gradient(180deg,rgba(243,243,243,0) 55%,var(--mm-bg))}
+.phone-in.light .mm-field{background:#fff;border-color:#DADADA;color:#8A8A8A}
+.phone-in.light .mm-or::before,.phone-in.light .mm-or::after{background:#DADADA}
+.phone-in.light .mm-soc{border:1px solid #DADADA}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px}
+.seg{display:inline-flex;align-items:center;background:#1E1E1E;border:1px solid #2E2E2E;border-radius:20px;padding:3px;gap:2px}
+.seg span{font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding:0 6px 0 8px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#131313}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:#fff;
+  font:700 12px/1 'Plus Jakarta Sans',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#fff;color:#15181B;border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#EEF0F1}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#3B414A;padding:7px 10px;border-radius:12px;border:1px solid #E1E4E6;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(255,255,255,.28);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.35);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(255,255,255,.45)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:10px 16px 10px 10px;text-align:left;color:#15181B}
+.qr img{width:135px;height:135px;display:block;image-rendering:pixelated;border-radius:4px}
+.qr span{font-size:12.5px;line-height:1.45;color:#4A5058}
+.qr b{display:block;color:#15181B;font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .mm-photo{margin-top:0}
+  #view-proto .scr--pay.var-a .mm-photo{margin-top:0}
+  #view-proto .mm-x{top:10px}
+  #view-proto .mm-restore{top:20px}
+  #view-proto .mm-help{top:16px}
+  #view-proto .scr-foot{padding-bottom:16px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #2E2E2E;background:#1E1E1E;
+  font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#444}
+.chip.offer{border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.pn-tabs button{font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;padding:7px 11px;border-radius:14px;border:1px solid #E1E4E6;color:#4A5058}
+.pn-tabs button.on{background:#15181B;border-color:#15181B;color:#fff}
+.pn-tabs span{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-muted);align-self:center;margin-right:4px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#2E353B;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-chip{display:block;margin-top:14px;background:#FFF4EF;border:1px solid #FFD8C8;border-radius:12px;padding:9px 12px;font-size:12.5px;line-height:1.5;color:#3B2A22;text-decoration:none}
+.pn-chip:hover{border-color:#FFB89C}
+.pn-chip b{color:#15181B}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-out .v small{font-size:14px;font-weight:600;letter-spacing:-.01em;color:#5F666D;margin-left:6px}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#2E353B;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);padding-top:14px;margin-top:26px}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <span class="mk"><svg role="img" aria-label="Adapty" viewBox="0 0 197 52" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M34 0C25.1667 0 18 4.16667 18 13V40C26.8333 40 34 32.8333 34 24V0ZM0 24C0 32.8333 7.16667 40 16 40V8C7.16667 8 0 15.1667 0 24ZM84.76 40.7876C83.9266 40.7876 83.0623 40.695 82.1671 40.5405C79.1421 39.9537 76.6109 38.4093 74.6971 35.9382C70.6842 30.8108 71.1472 23.4595 75.7774 18.888C78.1851 16.5097 81.5498 15.1815 84.9761 15.2432C87.7851 15.305 90.4089 16.3243 92.5388 18.1158V4H97.4776V40.2934H92.5696V37.8224C90.2237 39.7992 87.5999 40.7876 84.76 40.7876ZM84.7291 20.3398C82.5993 20.3398 80.6237 21.1429 79.1421 22.6255C77.6913 24.0463 76.8887 25.9614 76.8887 27.9691C76.8887 30.0077 77.6604 31.8919 79.1112 33.3436C80.5928 34.8263 82.5684 35.6602 84.7291 35.6602C89.0198 35.6602 92.5079 32.2317 92.5079 28.0309C92.5387 23.8301 89.0507 20.3707 84.76 20.3398H84.7291ZM132.846 52H127.938V15.7066H132.846V18.0849C135.593 15.7066 138.557 15.2124 140.686 15.2432C144.298 15.2741 147.91 16.8494 150.132 19.3514C154.423 24.2008 154.546 31.4595 150.441 36.2471C148.033 39.0579 144.946 40.5714 141.273 40.7568C138.124 40.9112 135.315 39.9228 132.877 37.8224V52H132.846ZM140.686 20.3398C138.557 20.3398 136.55 21.1737 135.068 22.6564C133.648 24.1081 132.846 25.9923 132.846 28C132.846 32.2625 136.272 35.6293 140.625 35.6602C142.755 35.6911 144.73 34.8571 146.212 33.4054C147.663 31.9537 148.465 30.0386 148.465 28C148.465 23.7683 144.977 20.3398 140.686 20.3398ZM48.4162 37.6371C50.7313 39.6757 53.6946 40.7259 56.6271 40.7259C58.5718 40.7259 60.5164 40.2626 62.2759 39.2741C63.0785 38.8108 63.8502 38.2548 64.5601 37.6988V40.2934H69.5916V36.5251V28.0309C69.5608 26.0541 69.2212 24.3243 68.4804 22.749C65.9801 17.4054 60.7943 14.5637 54.9293 15.305C49.1879 16.0154 44.4033 21.0811 44.0329 26.7954C43.7551 31.2124 45.2368 34.8571 48.4162 37.6371ZM56.7505 20.1236C54.6515 20.1236 52.7068 20.9266 51.2252 22.4093C49.7435 23.8919 48.9409 25.8378 48.9409 27.9382C48.9409 32.3243 52.3982 35.7529 56.7814 35.7529C61.0721 35.7529 64.5602 32.2626 64.5602 27.9382C64.5602 23.6448 61.0721 20.1544 56.7505 20.1236ZM112.217 40.7259C109.285 40.7259 106.321 39.6757 104.006 37.6371C100.827 34.8571 99.3451 31.2124 99.6229 26.7954C99.9933 21.0811 104.778 16.0154 110.519 15.305C116.384 14.5637 121.57 17.4054 124.07 22.749C124.811 24.3243 125.151 26.0541 125.182 28.0309V36.5251V40.2934H120.15V37.6988C119.44 38.2548 118.668 38.8108 117.866 39.2741C116.106 40.2626 114.162 40.7259 112.217 40.7259ZM106.815 22.4093C108.297 20.9266 110.242 20.1236 112.341 20.1236C116.662 20.1544 120.15 23.6448 120.15 27.9382C120.15 32.2626 116.662 35.7529 112.371 35.7529C107.988 35.7529 104.531 32.3243 104.531 27.9382C104.531 25.8378 105.334 23.8919 106.815 22.4093ZM172.289 52H172.536H172.628C172.721 51.9691 172.814 51.9691 172.906 51.9691C173.019 51.9588 173.133 51.952 173.246 51.9451C173.472 51.9314 173.698 51.9176 173.925 51.8765C178.185 51.166 181.364 48.8185 183.309 44.8649L196.798 17.6834L192.322 15.4286L183.926 32.3243L175.468 15.4286L171.023 17.5907L171.394 18.3938C171.424 18.471 171.463 18.5483 171.502 18.6255C171.54 18.7027 171.579 18.7799 171.61 18.8571L172.937 21.5135C174.073 23.7743 175.221 26.0747 176.375 28.3881L176.375 28.3882L176.375 28.3888C177.917 31.4799 179.471 34.5941 181.024 37.668C181.148 37.9151 181.148 38.0077 181.024 38.2548C180.314 39.6448 179.574 41.1583 178.771 42.8571C177.907 44.6795 176.456 45.9151 174.48 46.5946C174.042 46.7495 173.603 46.8397 173.129 46.9372L172.992 46.9654C172.943 46.9755 172.894 46.9857 172.844 46.9961C172.597 47.0579 172.32 47.1197 172.042 47.1815L171.548 47.305V51.9691L172.134 52H172.289ZM164.498 40.695C163.788 40.695 163.047 40.5714 162.306 40.3552C159.528 39.5521 157.707 37.6062 156.997 34.7336C156.843 34.1158 156.781 33.4363 156.781 32.5405V23.7683V20.6178H154.25V15.6757H156.781V6.31659H161.751V15.6448H168.758V20.6486H161.781V23.5212V32.9112C161.781 33.8069 162.09 34.5483 162.677 35.0734C163.232 35.5367 163.973 35.7529 164.776 35.6602C165.115 35.6293 165.516 35.444 165.918 35.2587L166.566 34.9807L166.936 34.8262L170.116 38.1622L169.653 38.5946C168.109 39.9846 166.381 40.695 164.498 40.695Z" fill="currentColor"></path></svg></span>
+      <b>Paywall Audit</b><span>· MadMuscles</span>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+      <a class="nav-rep rep" href="#" target="_blank" rel="noopener"><span class="lg">Read the report ↗</span><span class="sh">Report ↗</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <!-- month + year = the day you build --><div class="eyebrow">Paywall Audit · October 2026</div>
+    <div class="hero-co"><img src="img/icon.png" alt="MadMuscles app icon"><h1>MadMuscles</h1></div>
+    <p class="lede">Hey MadMuscles team, here are four ideas for your paywall, each backed by data from 78,000+ paywalls.</p>
+    <div class="meta">Prepared for the MadMuscles team by <b>Adapty</b> · based on your live paywall, your App Store listing and State of Paywalls 2026</div>
+    <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>78,000+</b><span>paywalls in State<br>of Paywalls 2026</span></div>
+      <div class="stat"><b>4</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+
+    <div class="fb">
+      <div class="fb-k">Built in Adapty Flow Builder</div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p>
+      </div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We went through MadMuscles the way a new user does, then held your paywall up against the market.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, and this spring we published what 78,000+ of their paywalls show: what converts, by region and category. We took the quiz, reached your paywall, tapped every plan and closed it to see what happens next. Then we compared each part of it with the report.</p>
+    <p class="body">What follows is four ideas. Each one is a test you can run, and each one is built into a clickable prototype of your own paywall. <b>Benchmarks are for Health &amp; Fitness apps in the US</b>, your biggest App Store market. In the report, the typical US Health &amp; Fitness app turns 2.86% of paywall views into paid users within 30 days.</p>
+
+    <div class="notes">
+      <div class="note">
+        <h4>We did not redesign your paywall</h4>
+        <p>Every screen in the prototype is yours: the photo, the three plan cards with POPULAR and BEST PRICE, FOREVER FIT, the orange Continue in its glow, your prices. Flip “Today” above the phone and you get the paywall exactly as it ships.</p>
+      </div>
+      <div class="note">
+        <h4>You may have tested some of this</h4>
+        <p>We are working from the outside, so we cannot see your experiment history. If one of these is something you have already run, tell us and we will go deeper on the rest.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">Scorecard</div>
+    <h2>Your paywall against the report.</h2>
+    <table class="sc">
+      <thead><tr><th>Element</th><th>Your paywall</th><th>Top paywalls (report)</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr><td>Plans</td><td data-l="Your paywall">Four: 1, 3 and 6 months as cards, plus lifetime below</td><td data-l="Top paywalls (report)">62% show two plans, 20% three, 2% four or more<small>In Adapty data, two plan lengths convert 67% better; more plans win only 53% of tests</small></td><td><span class="pill opp">Test opportunity</span></td></tr>
+        <tr><td>Pre-selected plan</td><td data-l="Your paywall">1 MONTH, the shortest and most expensive per week</td><td data-l="Top paywalls (report)">67% pre-select annual<small>Health &amp; Fitness in Adapty data: 63.5% annual, 17.3% monthly</small></td><td><span class="pill mis">Mismatch</span><a class="to" href="#idea-1">→ Idea 1</a></td></tr>
+        <tr><td>Price framing</td><td data-l="Your paywall">Full price per period, plus a price per week on every card</td><td data-l="Top paywalls (report)">62% show the full annual price; only 4% break it down by week</td><td><span class="pill def">Market default</span></td></tr>
+        <tr><td>Trial and savings</td><td data-l="Your paywall">No trial. No feature list and no saving shown</td><td data-l="Top paywalls (report)">Without a trial, paywalls sell value: 56% show an image, 67% a feature list, 56% a “Save X%”</td><td><span class="pill mis">Mismatch</span><a class="to" href="#idea-1">→ Idea 1</a></td></tr>
+        <tr><td>Headline</td><td data-l="Your paywall">“Get your personalized workout plan”, the same for everyone</td><td data-l="Top paywalls (report)">79% use six words or fewer; only 2% use what the app knows about the user</td><td><span class="pill opp">Test opportunity</span><a class="to" href="#idea-3">→ Idea 3</a></td></tr>
+        <tr><td>Social proof</td><td data-l="Your paywall">None on the paywall. Review cards appear on the loader before it</td><td data-l="Top paywalls (report)">27% show ratings, reviews or user counts</td><td><span class="pill opp">Test opportunity</span><a class="to" href="#idea-4">→ Idea 4</a></td></tr>
+        <tr><td>CTA</td><td data-l="Your paywall">“Continue”, full width, in a glowing orange frame</td><td data-l="Top paywalls (report)">“Continue” is the second most common CTA (23%)</td><td><span class="pill def">Market default</span></td></tr>
+        <tr><td>Near the CTA</td><td data-l="Your paywall">“Automatically renewed, cancel anytime”, plus Terms, Privacy, Subscription Policy</td><td data-l="Top paywalls (report)">61% carry a cancelling line; 68% of those say “cancel anytime”</td><td><span class="pill def">Market default</span></td></tr>
+        <tr><td>After close</td><td data-l="Your paywall">X is visible from the start. Tapping it goes straight to account creation</td><td data-l="Top paywalls (report)">90% of apps show the close button right away; only 4% show a second paywall after close</td><td><span class="pill opp">Test opportunity</span><a class="to" href="#idea-2">→ Idea 2</a></td></tr>
+      </tbody>
+    </table>
+    <p class="sc-cap">Top paywalls = 100 top iOS paywalls reviewed in State of Paywalls 2026. These describe common practice, not what converts. The smaller lines and the “after close” share come from Adapty platform data in the same report.</p>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The four ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Offer changes first, because that is what wins most often in the report. Each one opens the prototype on its screen.</p>
+
+    <div class="ideas">
+      <div class="idea" id="idea-1" data-jump="paywall" data-idea="1" role="button" tabindex="0">
+        <span class="no">01</span>
+        <span>
+          <h3>Open on your 6-month plan</h3>
+          <p>Today the paywall opens with 1 MONTH at 9,99 € selected, the plan with the highest weekly price. Your BEST PRICE badge already sits on 6 MONTHS at 29,99 €, which works out at 1,25 € a week, half of monthly’s 2,50 €. Select it by default and say that saving out loud.</p>
+          <a class="rchip rep" href="#" target="_blank" rel="noopener">📊 <span><b>State of Paywalls 2026 · Health &amp; Fitness:</b> annual is pre-selected on 63.5% of paywalls and brings 62% of revenue.</span></a>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>59% of tests</b><span>plan-duration tests that raised LTV · report finding</span></span>
+      </div>
+
+      <div class="idea" id="idea-2" data-jump="offer" role="button" tabindex="0">
+        <span class="no">02</span>
+        <span>
+          <h3>Offer a smaller first step on close</h3>
+          <p>Tap X today and the paywall slides away to account creation, right after a loader that says “We prepare special offers for you”. A short sheet with your own 1-month and 3-month plans keeps the door open, with “No thanks” one tap away. No new price is needed.</p>
+          <a class="rchip rep" href="#" target="_blank" rel="noopener">📊 <span><b>State of Paywalls 2026:</b> only 4% of apps show a second paywall after close; it beats the main one in 45% of apps.</span></a>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>based on Adapty data</span></span>
+      </div>
+
+      <div class="idea" id="idea-3" data-jump="paywall" data-idea="3" role="button" tabindex="0">
+        <span class="no">03</span>
+        <span>
+          <h3>Put their answers in the headline</h3>
+          <p>The quiz asks for a name, a goal, problem areas and how often they can train. Then the headline says “Get your personalized workout plan” to everyone. Read it back instead: “Your Build Muscle plan is ready”, with chest, arms and 3–4 workouts a week underneath.</p>
+          <a class="rchip rep" href="#" target="_blank" rel="noopener">📊 <span><b>State of Paywalls 2026:</b> only 2% of top paywalls use what the app knows about the user.</span></a>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +8–17%</b><span>observed in winning A/B tests</span></span>
+      </div>
+
+      <div class="idea" id="idea-4" data-jump="paywall" data-idea="4" role="button" tabindex="0">
+        <span class="no">04</span>
+        <span>
+          <h3>Show your 4.4 where the price is</h3>
+          <p>134K ratings at 4.4 on the US App Store, and reviews like “Beginner Friendly”, appear nowhere on the paywall. The review cards on the loader are gone by the time the price shows. One line of rating and one real quote fit above the plans.</p>
+          <a class="rchip rep" href="#" target="_blank" rel="noopener">📊 <span><b>State of Paywalls 2026:</b> only 27% of top paywalls show social proof.</span></a>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–30%</b><span>observed in winning A/B tests</span></span>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>All four work on the same moment, the one screen where someone decides: which plan they see first, whether it speaks to them, whether they trust it, and what happens if they say no.</p>
+      </div>
+      <div class="nums">
+        <div><b>up to +30%</b><span>CR to purchase</span></div>
+        <div><b>up to +15%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="repcard">
+      <div class="rt">
+        <div class="rk">The source behind every number</div>
+        <h3>State of Paywalls 2026</h3>
+        <p>78,000+ paywalls, 30,000+ apps, benchmarks by region and category.</p>
+      </div>
+      <a class="repbtn rep" href="#" target="_blank" rel="noopener">Get the full report ↗</a>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the paywall in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open the prototype
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are observed lifts from winning A/B tests in State of Paywalls 2026 and Adapty's own data, not measured results for MadMuscles. Benchmarks: App Store data, Oct 2025–Sep 2026, Health &amp; Fitness, US (category-wide figures are marked as such). Prices, ratings and quotes come from MadMuscles' own listing and screens.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools" id="tools">
+      <div class="seg" id="segVar"><span>Paywall</span><button data-var="a">Today</button><button data-var="b" class="on">Proposed</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light">Light</button><button data-theme="dark" class="on">Dark</button></div>
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="de">DE</button><button data-lang="es">ES</button></div>
+      <div class="seg" id="segPins"><span>Pins</span><button data-pins="on" class="on">On</button><button data-pins="off">Off</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar">
+          <span>16:18</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="pop" id="pop"><button class="cl" id="popClose" aria-label="Close">×</button><div class="k" id="popK"></div><p id="popP"></p><div class="sl" id="popS"></div><a class="rep" href="#" target="_blank" rel="noopener">State of Paywalls 2026 ↗</a></div>
+        <div class="screenwrap">
+
+<!-- PAYWALL -->
+<section class="scr scr--pay is-active" data-id="paywall">
+  <div class="scr-top">
+    <button class="mm-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 5 5 19M5 5l14 14"/></svg></button>
+    <button class="mm-restore" data-t="restore"></button>
+  </div>
+  <div class="scr-body">
+    <div class="mm-photo"><img src="img/hero.jpg" alt=""></div>
+    <div class="mm-head" id="payHead">
+      <span class="pin" data-pin="3" style="right:-6px;top:-14px">3</span>
+      <h2 class="mm-payh" id="payH"></h2>
+      <p class="mm-paysub" id="paySub"></p>
+    </div>
+    <div class="mm-proof" id="payProof">
+      <span class="pin" data-pin="4" style="right:-6px;top:-10px">4</span>
+      <div class="mm-rate"><span class="mm-stars">★★★★<span style="opacity:.45">★</span></span><span data-t="rate"></span></div>
+      <div class="mm-quote">“Every workout and set has an explanation and video that are easy to comprehend.” <b>— Hxlden B, App Store</b></div>
+    </div>
+    <div class="mm-plans" id="planList">
+      <button class="mm-plan" data-v="m1"><span class="n">1</span><span class="u" data-t="m1"></span><span class="p">9,99 €</span><span class="e" data-t="e1"></span><span class="w" data-t="w1"></span></button>
+      <button class="mm-plan" data-v="m3"><span class="mm-tagp" data-t="tagPop"></span><span class="n">3</span><span class="u" data-t="mN"></span><span class="p">19,99 €</span><span class="e" data-t="e3"></span><span class="w" data-t="w3"></span></button>
+      <button class="mm-plan" data-v="m6"><span class="mm-tagp blue" data-t="tagBest"></span><span class="pin" data-pin="1" style="right:-11px;bottom:34px">1</span><span class="n">6</span><span class="u" data-t="mN"></span><span class="p">29,99 €</span><span class="e" data-t="e6"></span><span class="w" data-t="w6"></span></button>
+    </div>
+    <p class="mm-save" data-th="save"></p>
+    <button class="mm-life" data-v="life"><span class="mm-tagp">FOREVER FIT</span><span class="t" data-t="life"></span><span class="s" data-t="lifeS"></span></button>
+    <div style="height:4px"></div>
+  </div>
+  <div class="scr-foot">
+    <div class="mm-halo"><button class="mm-btn" id="payCta" data-t="cont"></button></div>
+    <p class="mm-legal" id="payTrust"></p>
+    <div class="mm-links"><a data-t="lgT"></a>|<a data-t="lgP"></a>|<a data-t="lgS"></a></div>
+  </div>
+</section>
+
+<!-- OFFER ON CLOSE (proposed) -->
+<section class="scr mm-ov" data-id="offer" data-overlay="1">
+  <div class="mm-dim" id="offDim"></div>
+  <div class="mm-sheet">
+    <div class="mm-handle"></div>
+    <h3 class="mm-sh-h" id="offH"><span class="pin" data-pin="2" style="right:-8px;top:-16px">2</span><span id="offHt"></span></h3>
+    <p class="mm-sh-s" data-t="ofS"></p>
+    <div class="mm-oplans" id="offPlans">
+      <button class="mm-plan" data-v="m1"><span class="n">1</span><span class="u" data-t="m1"></span><span class="p">9,99 €</span><span class="e" data-t="e1"></span><span class="w" data-t="w1"></span></button>
+      <button class="mm-plan" data-v="m3"><span class="mm-tagp" data-t="tagPop"></span><span class="n">3</span><span class="u" data-t="mN"></span><span class="p">19,99 €</span><span class="e" data-t="e3"></span><span class="w" data-t="w3"></span></button>
+    </div>
+    <div class="mm-halo" style="margin-top:30px"><button class="mm-btn" id="offCta"></button></div>
+    <p class="mm-legal" id="offTrust"></p>
+    <button class="mm-ghost" id="offNo" data-t="ofNo"></button>
+  </div>
+</section>
+
+<!-- ACCOUNT (where both paths hand over today) -->
+<section class="scr scr--acc" data-id="account">
+  <div class="scr-top"><a class="mm-help" data-t="acHelp"></a></div>
+  <div class="scr-body">
+    <div class="mm-wall"><img src="img/madwall.jpg" alt=""></div>
+    <h2 class="mm-ach" data-t="acH"></h2>
+    <p class="mm-acs" data-t="acS"></p>
+    <div class="mm-field" data-t="acE"></div>
+    <div class="mm-or" data-t="acOr"></div>
+    <button class="mm-soc" id="accG"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-8Z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.7l-3.5-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.2v2.8A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.2a11 11 0 0 0 0 9.8l3.6-2.8Z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3 .6 4.2 1.6l3.1-3.1A11 11 0 0 0 2.2 7.1l3.6 2.8C6.7 7.3 9.1 5.4 12 5.4Z"/></svg><span data-t="acG"></span></button>
+    <button class="mm-soc"><svg viewBox="0 0 24 24" fill="#111"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.6-1-2.6-4.1ZM13.9 5c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3-1.5Z"/></svg><span data-t="acA"></span></button>
+    <div style="height:24px"></div>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen. Tap a numbered pin to see the report finding behind it.</p>
+    <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the paywall in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+var REPORT='https://adapty.io/state-of-paywalls/?utm_source=paywall-audit&utm_medium=github-pages&utm_campaign=sop_2026&utm_content=madmuscles';
+document.querySelectorAll('a.rep').forEach(function(a){ a.href=REPORT; });
+
+/* the lead's first name, for the prototype only */
+var NAME=(function(){ var m=/[?&]for=([^&]*)/.exec(location.search), v='';
+  if(m){ try{ v=decodeURIComponent(m[1].replace(/\+/g,' ')); }catch(e){ v=''; } }
+  v=v.replace(/[^A-Za-zÀ-ÖØ-öø-ÿĀ-žА-яЁёІіЇїЄєҐґ \-]/g,'').trim().slice(0,20);
+  return v || 'Andrii'; })();
+
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS=['en','de','es'];
+var T={
+ 'restore':["Restore","Wiederherstellen","Restaurar"],
+ 'pw.hA':["Get your personalized workout plan","Dein persönlicher Trainingsplan","Tu plan de entreno personalizado"],
+ 'pw.hB':["{n}, your Build Muscle plan is ready","{n}, dein Muskel-Plan ist fertig","{n}, tu plan de músculo está listo"],
+ 'pw.sub':["Chest · Slim arms · 3–4 workouts a week","Brust · Schlanke Arme · 3–4 Workouts/Woche","Pecho · Brazos · 3–4 entrenos/semana"],
+ 'rate':["4.4 · 134K ratings on the App Store","4,4 · 134.000 Bewertungen im App Store","4,4 · 134.000 valoraciones en App Store"],
+ 'm1':["MONTH","MONAT","MES"], 'mN':["MONTHS","MONATE","MESES"],
+ 'e1':["every month","jeden Monat","cada mes"], 'e3':["every 3 months","alle 3 Monate","cada 3 meses"], 'e6':["every 6 months","alle 6 Monate","cada 6 meses"],
+ 'w1':["2,50 €/week","2,50 €/Woche","2,50 €/sem."], 'w3':["1,67 €/week","1,67 €/Woche","1,67 €/sem."], 'w6':["1,25 €/week","1,25 €/Woche","1,25 €/sem."],
+ 'tagPop':["Popular","Beliebt","Popular"], 'tagBest':["Best price","Bester Preis","Mejor precio"],
+ 'save':["6 months: <b>1,25 € a week</b>, half of monthly’s 2,50 €.","6 Monate: <b>1,25 €/Woche</b>, halb so viel wie monatlich.","6 meses: <b>1,25 €/semana</b>, la mitad que el mensual."],
+ 'life':["LIFETIME ACCESS","LEBENSLANGER ZUGANG","ACCESO DE POR VIDA"],
+ 'lifeS':["129,99 € (one payment)","129,99 € (einmalige Zahlung)","129,99 € (pago único)"],
+ 'cont':["Continue","Weiter","Continuar"],
+ 'lgA':["Automatically renewed, cancel anytime","Automatische Verlängerung, jederzeit kündbar","Renovación automática, cancela cuando quieras"],
+ 'tr.m1':["Renews at 9,99 € every month · cancel anytime","Verlängert sich für 9,99 € pro Monat · jederzeit kündbar","Se renueva por 9,99 € al mes · cancela cuando quieras"],
+ 'tr.m3':["Renews at 19,99 € every 3 months · cancel anytime","Verlängert sich für 19,99 € alle 3 Monate · jederzeit kündbar","Se renueva por 19,99 € cada 3 meses · cancela cuando quieras"],
+ 'tr.m6':["Renews at 29,99 € every 6 months · cancel anytime","Verlängert sich für 29,99 € alle 6 Monate · jederzeit kündbar","Se renueva por 29,99 € cada 6 meses · cancela cuando quieras"],
+ 'tr.life':["One payment of 129,99 € · nothing renews","Einmalig 129,99 € · keine Verlängerung","Un único pago de 129,99 € · sin renovación"],
+ 'lgT':["Terms","AGB","Términos"], 'lgP':["Privacy","Datenschutz","Privacidad"], 'lgS':["Subscription Policy","Abo-Richtlinie","Política de suscripción"],
+ 'ofH':["Not ready to commit, {n}?","Noch nicht bereit, {n}?","¿Aún no te decides, {n}?"],
+ 'ofS':["Start with a shorter plan. Same workouts, cancel anytime.","Starte mit einem kürzeren Plan. Gleiche Workouts, jederzeit kündbar.","Empieza con un plan más corto. Los mismos entrenos, cancela cuando quieras."],
+ 'ofC.m1':["Start with 1 month","Mit 1 Monat starten","Empezar con 1 mes"],
+ 'ofC.m3':["Start with 3 months","Mit 3 Monaten starten","Empezar con 3 meses"],
+ 'ofNo':["No thanks","Nein, danke","No, gracias"],
+ 'acHelp':["Need help?","Hilfe?","¿Ayuda?"],
+ 'acH':["Your plan is ready","Dein Plan ist fertig","Tu plan está listo"],
+ 'acS':["Create an account to access it anytime","Erstelle ein Konto, um jederzeit darauf zuzugreifen","Crea una cuenta para acceder cuando quieras"],
+ 'acE':["Enter your email","E-Mail eingeben","Introduce tu email"],
+ 'acOr':["or","oder","o"],
+ 'acG':["Continue with Google","Weiter mit Google","Continuar con Google"],
+ 'acA':["Continue with Apple","Weiter mit Apple","Continuar con Apple"]
+};
+
+/* ================= state ================= */
+function defaults(){ return { lang:S0.lang, theme:S0.theme, pins:S0.pins, variant:'b', plan:'m6', oplan:'m1' }; }
+var S0={lang:'en', theme:'dark', pins:true};
+var S=defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+function esc(s){ return s.replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('#phoneIn [data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('#phoneIn [data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+}
+
+/* ================= everything downstream reads S ================= */
+function syncScreen(){
+  var A=S.variant==='a', P=scr.paywall;
+  P.classList.toggle('var-a',A);
+  document.getElementById('payH').textContent = A ? t('pw.hA') : t('pw.hB',{n:NAME});
+  document.getElementById('paySub').textContent = t('pw.sub');
+  document.querySelectorAll('#planList .mm-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.plan); });
+  document.querySelector('.mm-life').classList.toggle('on', S.plan==='life');
+  document.getElementById('payTrust').textContent = A ? t('lgA') : t('tr.'+S.plan);
+  document.querySelectorAll('#offPlans .mm-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.oplan); });
+  document.getElementById('offHt').textContent = t('ofH',{n:NAME});
+  document.getElementById('offCta').textContent = t('ofC.'+S.oplan);
+  document.getElementById('offTrust').textContent = t('tr.'+S.oplan);
+  phoneIn.classList.toggle('nopins', !S.pins || A);
+}
+
+/* ================= router ================= */
+var LABEL={paywallA:'Paywall · Today',paywallB:'Paywall · Proposed',offer:'Offer on close',account:'After close'};
+var scr={}, hist=[], cur='paywall', phoneIn=document.getElementById('phoneIn');
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+
+function chrome(){ var light=S.theme==='light' && cur!=='paywall' && cur!=='offer';
+  document.getElementById('sbar').classList.toggle('dk',light); document.getElementById('homebar').classList.toggle('dk',S.theme==='light'); }
+function enter(){ hidePop(); phoneIn.classList.toggle('on-offer',cur==='offer'); chrome(); paintChips(); paintPanel(); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(!to.dataset.overlay){ from.classList.remove('is-active'); if(!from.dataset.overlay) from.classList.add('is-past'); else scr.paywall.classList.remove('is-active'), scr.paywall.classList.add('is-past'); }
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter();
+}
+function back(){
+  if(!hist.length) return;
+  var prev=hist.pop();
+  scr[cur].classList.remove('is-active');
+  scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active');
+  cur=prev; enter();
+}
+function jump(id){
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist = id==='paywall' ? [] : ['paywall'];
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  void phoneIn.offsetHeight;
+  setTimeout(function(){ Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); },60);
+  syncScreen(); enter();
+}
+function chipKey(){ return cur==='paywall' ? (S.variant==='a'?'paywallA':'paywallB') : cur; }
+function paintChips(){
+  var c=document.getElementById('chips');
+  if(!c.children.length){
+    ['paywallA','paywallB','offer','account'].forEach(function(k){
+      var b=document.createElement('button'); b.className='chip'+(k==='offer'?' offer':''); b.textContent=LABEL[k]; b.dataset.k=k;
+      b.onclick=function(){ stopDemo(); openKey(k); }; c.appendChild(b);
+    });
+  }
+  var ck=chipKey(); c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on', b.dataset.k===ck); });
+}
+function openKey(k){
+  if(k==='paywallA'){ setVariant('a',true); jump('paywall'); }
+  else if(k==='paywallB'){ setVariant('b',true); jump('paywall'); }
+  else if(k==='offer'){ setVariant('b',true); jump('offer'); }
+  else jump('account');
+}
+
+/* ================= pins ================= */
+var PINS={
+ 1:{k:'Idea 1 · plan pre-selection', p:'<b>63.5%</b> of Health &amp; Fitness paywalls pre-select annual, and only 17.3% monthly. Annual brings <b>62%</b> of the category’s revenue.', s:'Adapty data · Health & Fitness, all regions'},
+ 2:{k:'Idea 2 · second chance', p:'Only <b>4%</b> of apps show another paywall when the first is closed. Those convert at <b>0.88×</b> the main paywall and beat it in <b>45%</b> of apps.', s:'Adapty data · all apps'},
+ 3:{k:'Idea 3 · personalized headline', p:'Only <b>2%</b> of top paywalls use what the app knows about the user. Onboarding personalization lifted conversion <b>+8–17%</b> in winning tests.', s:'Top 100 iOS paywalls + Adapty A/B tests'},
+ 4:{k:'Idea 4 · social proof', p:'Only <b>27%</b> of top paywalls show social proof. Adding it to the paywall lifted conversion <b>+10–30%</b> in winning tests.', s:'Top 100 iOS paywalls + Adapty A/B tests'}
+};
+var pop=document.getElementById('pop'), popFor=0;
+function showPop(n,el){
+  var d=PINS[n]; popFor=n;
+  document.getElementById('popK').textContent=d.k; document.getElementById('popP').innerHTML=d.p; document.getElementById('popS').textContent=d.s;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  var x=(r.left-p.left+r.width/2)/z, y=(r.top-p.top)/z, w=250, W=phoneIn.offsetWidth;
+  var left=Math.max(10,Math.min(W-w-10,x-w/2));
+  pop.style.left=left+'px';
+  pop.classList.add('on');
+  var h=pop.offsetHeight; var top = y-h-10 > 46 ? y-h-10 : (r.bottom-p.top)/z+10;
+  pop.style.top=top+'px';
+  if(cur==='paywall' && S.variant==='b' && n!==2){ panelIdea=n; paintPanel(); }
+}
+function hidePop(){ pop.classList.remove('on'); popFor=0; }
+document.querySelectorAll('.pin').forEach(function(el){ el.addEventListener('click',function(e){ e.stopPropagation(); var n=+el.dataset.pin; if(popFor===n) hidePop(); else showPop(n,el); }); });
+document.getElementById('popClose').addEventListener('click',function(e){ e.stopPropagation(); hidePop(); });
+document.querySelectorAll('.scr-body').forEach(function(b){ b.addEventListener('scroll',hidePop); });
+
+/* ================= wiring ================= */
+document.querySelectorAll('#planList .mm-plan').forEach(function(b){ b.addEventListener('click',function(){ S.plan=b.dataset.v; syncScreen(); }); });
+document.querySelector('.mm-life').addEventListener('click',function(){ S.plan='life'; syncScreen(); });
+document.querySelectorAll('#offPlans .mm-plan').forEach(function(b){ b.addEventListener('click',function(){ S.oplan=b.dataset.v; syncScreen(); }); });
+document.getElementById('payClose').addEventListener('click',function(){ go(S.variant==='a'?'account':'offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ go('account'); });
+document.getElementById('offCta').addEventListener('click',function(){ go('account'); });
+document.getElementById('offNo').addEventListener('click',function(){ go('account'); });
+document.getElementById('offDim').addEventListener('click',back);
+document.querySelectorAll('.mm-restore,.mm-links a,.mm-help').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); }); });
+document.getElementById('accG').addEventListener('click',function(){ jump('paywall'); });
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on', b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; setSeg('segLang','lang',l); applyStatic(); syncScreen(); paintPanel(); hidePop(); }
+function setTheme(th){ S.theme=th; S0.theme=th; phoneIn.classList.toggle('light',th==='light'); setSeg('segTheme','theme',th); chrome(); }
+function setPins(on){ S.pins=on; S0.pins=on; setSeg('segPins','pins',on?'on':'off'); if(!on) hidePop(); syncScreen(); }
+function setVariant(v,quiet){ S.variant=v; setSeg('segVar','var',v);
+  if(v==='a'){ S.plan='m1'; if(cur==='offer'){ jump('paywall'); return; } } else if(!quiet && S.plan==='m1'){ S.plan='m6'; }
+  hidePop(); syncScreen(); paintChips(); paintPanel(); }
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setLang(b.dataset.lang); }); });
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+document.querySelectorAll('#segPins button').forEach(function(b){ b.addEventListener('click',function(){ setPins(b.dataset.pins==='on'); }); });
+document.querySelectorAll('#segVar button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setVariant(b.dataset.var); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ document.getElementById('demoTxt').textContent=txt; }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=typeof sel==='string'?document.querySelector(sel):sel; if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  var inPhone = r.left>=p.left && r.right<=p.right && r.top>=p.top && r.bottom<=p.bottom;
+  if(inPhone){ finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px'; finger.classList.add('show'); }
+  else finger.classList.remove('show');
+  await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function lit(n){ document.querySelectorAll('.pin').forEach(function(p){ p.classList.toggle('lit', +p.dataset.pin===n); }); }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  var keep={lang:S.lang,theme:S.theme,pins:S.pins}; S=defaults(); S.lang=keep.lang; S.theme=keep.theme; S.pins=true;
+  setSeg('segPins','pins','on'); phoneIn.classList.add('demo-pins'); lit(0);
+  setVariant('a',true); applyStatic(); jump('paywall');
+  document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/260)+'%'; },200);
+  (async function(){
+    try{
+      cap('Today: your paywall as it ships, with 1 MONTH pre-selected.'); await pause(2600,tok);
+      cap('Close it and the user lands on account creation. No second chance.'); await tap('#payClose',tok); await pause(2200,tok);
+      jump('paywall'); await pause(250,tok);
+      cap('Proposed: same screen, same photo, same cards.'); finger.classList.remove('show'); setVariant('b'); await pause(1800,tok);
+      cap('It opens on your 6-month BEST PRICE plan, with the saving said out loud.'); lit(1); await pause(900,tok);
+      await tap('#planList [data-v=m1]',tok); await pause(650,tok); await tap('#planList [data-v=m6]',tok); await pause(900,tok);
+      cap('The headline reads their quiz answers back, by name.'); lit(3); await tap('[data-pin="3"]',tok); await pause(2400,tok); hidePop();
+      cap('Your 4.4 from 134K ratings and a real App Store review sit above the price.'); lit(4); await tap('[data-pin="4"]',tok); await pause(2400,tok); hidePop();
+      cap('Now they close it.'); lit(2); await tap('#payClose',tok); await pause(700,tok);
+      cap('A shorter plan on your own prices, and “No thanks” one tap away.'); await tap('[data-pin="2"]',tok); await pause(2300,tok); hidePop();
+      await tap('#offPlans [data-v=m3]',tok); await pause(500,tok); await tap('#offPlans [data-v=m1]',tok); await pause(600,tok);
+      cap('That is the audit. Flip “Today” above the phone any time to compare.');
+      finger.classList.remove('show'); await pause(2600,tok); stopDemo();
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press');
+  phoneIn.classList.remove('demo-pins'); lit(0); hidePop();
+  document.getElementById('demoCap').classList.add('hidden'); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+/* ---- the short panel: hypothesis + report chip + outcome ---- */
+var IDEAS={
+ 1:{t:'Open on your 6-month plan',
+   hyp:'Try selecting 6 MONTHS when the paywall opens and saying the saving under the cards, <b>because today 1 MONTH is selected: the plan with the highest weekly price, next to a BEST PRICE badge nobody is steered to</b>.',
+   chip:'<b>State of Paywalls 2026 · Health &amp; Fitness:</b> annual is pre-selected on 63.5% of paywalls and brings 62% of revenue. Pre-selecting annual does not hurt conversion.',
+   lab:'Report finding · State of Paywalls 2026', out:'59%<small>of plan-duration tests raised LTV</small>'},
+ 2:{t:'Offer a smaller first step on close',
+   hyp:'Try a short sheet with your own 1-month and 3-month plans when someone taps X, <b>because today X goes straight to account creation, right after a loader that promises “special offers”</b>. No new price: both are on your paywall already.',
+   chip:'<b>State of Paywalls 2026:</b> only 4% of apps do this. Second-chance paywalls convert at 0.88× the main one and beat it in 45% of apps.',
+   lab:'Potential outcome · based on Adapty data', out:'ARPU +10–15%'},
+ 3:{t:'Put their answers in the headline',
+   hyp:'Try reading the quiz back in the headline, <b>because the flow collects a name, a goal, problem areas and training days, then the paywall says the same line to everyone</b>.',
+   chip:'<b>State of Paywalls 2026:</b> only 2% of top paywalls use what the app knows about the user.',
+   lab:'Observed in winning A/B tests · State of Paywalls 2026', out:'CR +8–17%'},
+ 4:{t:'Show your 4.4 where the price is',
+   hyp:'Try one rating line and one real App Store review above the plans, <b>because 134K ratings at 4.4 appear nowhere on the paywall, and the loader’s review cards are gone by the time the price shows</b>.',
+   chip:'<b>State of Paywalls 2026:</b> only 27% of top paywalls show social proof.',
+   lab:'Observed in winning A/B tests · State of Paywalls 2026', out:'CR +10–30%'}
+};
+var KEPT={
+ paywall:'Your photo, the X and orange Restore, your headline style, the three square plan cards with POPULAR and BEST PRICE, FOREVER FIT lifetime, the glowing Continue and your legal links. Prices are your own, in euros as on your screens. The line under Continue now names the real renewal price for the selected plan.',
+ offer:'Your plan cards, your orange button in its glow, your type, on a sheet over the paywall. The prices are the ones already on your paywall.'
+};
+var panelIdea=1;
+function chipA(html){ return '<a class="pn-chip rep" href="'+REPORT+'" target="_blank" rel="noopener">📊 '+html+'</a>'; }
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function ideaBlock(n){ var d=IDEAS[n];
+  return '<div class="pn-n">Idea '+n+' of 4</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'+chipA(d.chip)+outBlock(d.lab,d.out); }
+function paintPanel(){
+  var h='';
+  if(cur==='paywall' && S.variant==='a'){
+    h+='<div class="pn-n ctx">Context · your paywall today</div><h3 class="pn-t">Get your personalized workout plan</h3>'
+     +'<div class="pn-kept">Rebuilt from your live paywall, recorded on 23 October 2026: the photo, the generic headline, 1 MONTH pre-selected, three cards plus lifetime, “Continue” and “Automatically renewed, cancel anytime”. X goes straight to account creation. Flip to “Proposed” to see the four ideas.</div>';
+  } else if(cur==='paywall'){
+    h+='<div class="pn-tabs"><span>On this screen</span>'+[1,3,4].map(function(n){ return '<button data-pi="'+n+'"'+(n===panelIdea?' class="on"':'')+'>Idea '+n+'</button>'; }).join('')+'</div>';
+    h+=ideaBlock(panelIdea)+'<div class="pn-kept"><b>Your design, unchanged.</b> '+KEPT.paywall+'</div>';
+  } else if(cur==='offer'){
+    h+=ideaBlock(2)+'<div class="pn-kept"><b>Your design, unchanged.</b> '+KEPT.offer+'</div>';
+  } else {
+    h+='<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">Your plan is ready</h3>'
+     +'<div class="pn-kept">Your account screen as it ships, with the MAD wall, email, Google and Apple. Today it is where X on the paywall leads. In the proposed version it comes after the offer sheet, whether they buy or say no.</div>';
+  }
+  if(S.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens are shown in '+(S.lang==='de'?'German':'Spanish')+' to show one paywall serving every market. Translated by us. Prices stay in euros as on your screens, and the App Store review stays verbatim in English.</div>';
+  h+='<div class="pn-foot">Impact ranges are observed lifts from winning A/B tests in State of Paywalls 2026 and Adapty’s own data, not measured lift for MadMuscles. Prices, ratings and quotes come from your own listing and screens.</div>';
+  var el=document.getElementById('panel'); el.innerHTML=h;
+  el.querySelectorAll('[data-pi]').forEach(function(b){ b.addEventListener('click',function(){ panelIdea=+b.dataset.pi; paintPanel(); }); });
+}
+
+/* ---- views, jumps from the overview ---- */
+function showView(v){
+  if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){
+  function open(e){ if(e.target.closest('a.rchip')) return; showView('proto');
+    if(b.dataset.jump==='offer'){ openKey('offer'); } else { if(b.dataset.idea) panelIdea=+b.dataset.idea; openKey('paywallB'); } }
+  b.addEventListener('click',open);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(e); } });
+});
+document.querySelectorAll('.sc .to').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault();
+  var el=document.querySelector(a.getAttribute('href')); el.scrollIntoView({behavior:'smooth',block:'center'}); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+
+applyStatic();
+syncScreen(); chrome(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
